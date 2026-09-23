@@ -1,0 +1,11 @@
+{
+  "name": "Remix Remix Remix ระบบตรวจสอบพัสดุประจำปี",
+  "description": "ระบบตรวจสอบพัสดุครุภัณฑ์ประจำปี ทำงานร่วมกันแบบ Real-time เชื่อมต่อ Firebase และ Google Sheets พร้อม Dashboard ค้นหา สแกนบาร์โค้ด และจัดการข้อมูลทะเบียน",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
