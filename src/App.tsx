@@ -27,6 +27,8 @@ import { AddAssetModal } from './components/AddAssetModal';
 import { QrScannerModal } from './components/QrScannerModal';
 import { SettingsModal } from './components/SettingsModal';
 import { GoogleWorkspaceModal } from './components/GoogleWorkspaceModal';
+import { PdfExportModal } from './components/PdfExportModal';
+import { ExternalDeployModal } from './components/ExternalDeployModal';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { initAuth, googleSignIn, getCurrentUser } from './services/googleAuth';
@@ -71,6 +73,8 @@ export default function App() {
   const [isQrScannerOpen, setIsQrScannerOpen] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isGoogleWorkspaceOpen, setIsGoogleWorkspaceOpen] = useState<boolean>(false);
+  const [isPdfExportOpen, setIsPdfExportOpen] = useState<boolean>(false);
+  const [isExternalDeployOpen, setIsExternalDeployOpen] = useState<boolean>(false);
   const [googleUser, setGoogleUser] = useState<User | null>(getCurrentUser);
   const [isListening, setIsListening] = useState<boolean>(false);
   const [toast, setToast] = useState<{ message: string; type?: 'success' | 'error' } | null>(null);
@@ -893,6 +897,7 @@ export default function App() {
         onLoadTestData={handleLoadTestData}
         onSyncSheets={handleSyncSheets}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        onOpenExternalDeploy={() => setIsExternalDeployOpen(true)}
       />
 
       {/* Main Container */}
@@ -925,6 +930,7 @@ export default function App() {
           onImportAssetsCsv={handleImportAssetsCsv}
           onImportTeamsCsv={handleImportTeamsCsv}
           onExportCsv={handleExportCsv}
+          onExportPdf={() => setIsPdfExportOpen(true)}
           onOpenGoogleWorkspace={() => setIsGoogleWorkspaceOpen(true)}
           onOpenAddAsset={() => setIsAddAssetOpen(true)}
         />
@@ -1010,6 +1016,7 @@ export default function App() {
           saveStoredAssets([]);
           showToast('ล้างข้อมูลพัสดุในเครื่องเรียบร้อยแล้ว', 'success');
         }}
+        onOpenExternalDeploy={() => setIsExternalDeployOpen(true)}
       />
 
       {/* Google Workspace (Drive & Sheets) Modal */}
@@ -1019,6 +1026,24 @@ export default function App() {
         assets={assets}
         onClose={() => setIsGoogleWorkspaceOpen(false)}
         onImportAssets={handleImportFromGoogleWorkspace}
+        onToast={showToast}
+      />
+
+      {/* PDF Report Export Modal */}
+      <PdfExportModal
+        isOpen={isPdfExportOpen}
+        onClose={() => setIsPdfExportOpen(false)}
+        allAssets={assets}
+        filteredAssets={filteredAssets}
+        inspectorName={config.inspectorName}
+      />
+
+      {/* External Deployment & Share Guide Modal */}
+      <ExternalDeployModal
+        isOpen={isExternalDeployOpen}
+        onClose={() => setIsExternalDeployOpen(false)}
+        onOpenPdfReport={() => setIsPdfExportOpen(true)}
+        onExportCsv={handleExportCsv}
         onToast={showToast}
       />
     </div>

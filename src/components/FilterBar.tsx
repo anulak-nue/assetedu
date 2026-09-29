@@ -11,6 +11,7 @@ import {
   DoorOpen,
   HardDrive,
   PlusCircle,
+  FileText,
 } from 'lucide-react';
 
 interface FilterBarProps {
@@ -33,6 +34,7 @@ interface FilterBarProps {
   onImportAssetsCsv: (file: File) => void;
   onImportTeamsCsv: (file: File) => void;
   onExportCsv: () => void;
+  onExportPdf?: () => void;
   onOpenGoogleWorkspace?: () => void;
   onOpenAddAsset?: () => void;
 }
@@ -57,6 +59,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onImportAssetsCsv,
   onImportTeamsCsv,
   onExportCsv,
+  onExportPdf,
   onOpenGoogleWorkspace,
   onOpenAddAsset,
 }) => {
@@ -302,6 +305,19 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <Download className="w-3.5 h-3.5" />
             <span>ส่งออก CSV</span>
           </button>
+
+          {onExportPdf && (
+            <button
+              type="button"
+              id="btn-export-pdf"
+              onClick={onExportPdf}
+              className="px-3 py-1.5 bg-rose-700 hover:bg-rose-800 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer"
+              title="ส่งออกรายงาน PDF สรุปสถานะการตรวจพัสดุทั้งหมด จัดกลุ่มตามประเภทสถานะการใช้งาน"
+            >
+              <FileText className="w-3.5 h-3.5 text-rose-200" />
+              <span>ส่งออกรายงาน PDF</span>
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
   HardDrive,
   LogIn,
   CheckCircle2,
+  Share2,
 } from 'lucide-react';
 import { User } from 'firebase/auth';
 import { AppConfig } from '../types';
@@ -28,6 +29,7 @@ interface NavbarProps {
   onLoadTestData: () => void;
   onSyncSheets: () => void;
   onOpenSettings: () => void;
+  onOpenExternalDeploy?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -42,6 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onLoadTestData,
   onSyncSheets,
   onOpenSettings,
+  onOpenExternalDeploy,
 }) => {
   return (
     <header className="bg-slate-900 text-white shadow-md sticky top-0 z-30 border-b border-slate-800">
@@ -184,6 +187,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <UserCheck className="w-3.5 h-3.5 text-blue-400" />
               <span className="max-w-[110px] truncate font-medium">{config.inspectorName}</span>
             </div>
+
+            {/* External Deploy / Share button */}
+            {onOpenExternalDeploy && (
+              <button
+                type="button"
+                id="btn-nav-external-deploy"
+                onClick={onOpenExternalDeploy}
+                className="px-2.5 sm:px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-xs active:scale-95 transition-all cursor-pointer"
+                title="นำระบบออกไปใช้งานภายนอก (แชร์ลิงก์, สแกน QR Code บนมือถือ, ติดตั้ง PWA, Deploy บน Server)"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">ใช้งานภายนอก</span>
+              </button>
+            )}
 
             {/* Settings button */}
             <button

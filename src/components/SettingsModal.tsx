@@ -9,6 +9,7 @@ import {
   FileSpreadsheet,
   User,
   CheckCircle2,
+  Share2,
 } from 'lucide-react';
 import { AppConfig } from '../types';
 import { DEFAULT_CONFIG } from '../services/storage';
@@ -21,6 +22,7 @@ interface SettingsModalProps {
   onClose: () => void;
   onSaveConfig: (newConfig: AppConfig) => void;
   onClearAllData: () => void;
+  onOpenExternalDeploy?: () => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -30,6 +32,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onClose,
   onSaveConfig,
   onClearAllData,
+  onOpenExternalDeploy,
 }) => {
   if (!isOpen) return null;
 
@@ -204,6 +207,32 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <span>ล้างฐานข้อมูล ({totalAssetsCount.toLocaleString()})</span>
             </button>
           </div>
+
+          {/* External Deploy card */}
+          {onOpenExternalDeploy && (
+            <div className="p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center flex-shrink-0">
+                  <Share2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="font-bold text-xs text-blue-900">นำระบบออกไปใช้งานภายนอก (Share / PWA / Deploy)</div>
+                  <div className="text-[11px] text-blue-700">แชร์ลิงก์, สแกน QR Code บนมือถือ, ติดตั้งเป็นแอป หรือนำไป Host บนเซิร์ฟเวอร์</div>
+                </div>
+              </div>
+              <button
+                type="button"
+                id="btn-settings-open-deploy"
+                onClick={() => {
+                  onClose();
+                  onOpenExternalDeploy();
+                }}
+                className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-xs cursor-pointer active:scale-95 transition-all flex-shrink-0"
+              >
+                เปิดเมนูใช้งานภายนอก
+              </button>
+            </div>
+          )}
 
           {/* Footer actions */}
           <div className="bg-slate-50 -mx-5 -mb-5 px-5 py-3 border-t border-slate-200 flex justify-end gap-2 flex-shrink-0">

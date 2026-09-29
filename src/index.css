@@ -45,3 +45,53 @@
   50% { transform: scale(1.9); opacity: 0; }
   100% { transform: scale(1); opacity: 0; }
 }
+
+/* Print styles for PDF Report */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide everything except printable report */
+  #root > div > header,
+  #root > div > main,
+  #root > div > footer,
+  #toast-notification,
+  #pdf-export-modal > div > div:first-child,
+  #pdf-export-modal > div > div:nth-child(2),
+  #pdf-export-modal > div > div:last-child {
+    display: none !important;
+  }
+
+  #pdf-export-modal {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  #pdf-export-modal > div {
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #pdf-printable-report {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 8mm !important;
+    margin: 0 !important;
+  }
+
+  .page-break-inside-avoid {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
